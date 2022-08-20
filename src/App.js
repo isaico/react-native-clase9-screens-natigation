@@ -1,9 +1,9 @@
 import Categories from './screens/categories';
 // import Products from './screens/index';
 // import Product from './screens/index';
-
+import AppNavigator from './navigation/index'
 export default function App() {
-    return <Categories />;
+    return <AppNavigator />;
 }
 
 // const styles = StyleSheet.create({
