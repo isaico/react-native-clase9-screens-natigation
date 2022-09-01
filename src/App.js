@@ -1,16 +1,11 @@
-import Categories from './screens/categories';
-// import Products from './screens/index';
-// import Product from './screens/index';
-import AppNavigator from './navigation/index'
-export default function App() {
-    return <AppNavigator />;
-}
+import store from './store/index'
+import { Provider } from 'react-redux';
+import AppNavigator from './navigation/index';
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
+export default function App() {
+    return (
+        <Provider store={store}>
+            <AppNavigator />
+        </Provider>
+    );
+}

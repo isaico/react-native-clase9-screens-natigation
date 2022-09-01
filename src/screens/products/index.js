@@ -1,15 +1,35 @@
-import React from 'react';
-import { Button, Text, View } from 'react-native';
+import React,{useEffect} from 'react';
+import { SafeAreaView,FlatList } from 'react-native';
 import { styles } from './styles.js';
+import { useSelector, useDispatch } from "react-redux";
+import { ProductItem } from "../../components";
+import { filteredProducts, selectProduct } from "../../store/actions/products.action";
+
 
 const Products = ({ navigation }) => {
+    const dispatch = useDispatch();
+    const categorySelected = useSelector((state) => state.category.selected);
+    const products = useSelector((state) => state.products.filteredProducts);
+    const onSelected = (item) => {
+        dispatch(selectProduct(item.id));
+        navigation.navigate('Product', {
+            name: item.name,
+        });
+    };
+
+    useEffect(() => {
+        dispatch(filteredProducts(categorySelected.id));
+    }, []);
+
+    const renderItem = ({ item }) => (
+        <ProductItem item={item} onSelected={onSelected} />
+    );
+    const keyExtractor = (item, index) => item.id.toString();
+
     return (
-        <View styles={styles.container}>
-            <Text>Aqui va la lista de productos</Text>
-            <Button title="Ir al producto"onPress={()=>navigation.navigate("Product")}></Button>
-            <Text>Aqui va la lista de productos</Text>
-            <Button title="Ir al producto"onPress={()=>navigation.navigate("Product")}></Button>
-        </View>
+        <SafeAreaView style={styles.container}>
+        <FlatList data={products} renderItem={renderItem} keyExtractor={keyExtractor} />
+      </SafeAreaView>
     );
 };
 export default Products;
