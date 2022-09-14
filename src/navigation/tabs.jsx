@@ -2,10 +2,11 @@ import React from 'react';
 import IoniIcons from '@expo/vector-icons/Ionicons';
 import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {colors} from '../constants/colors.js'
+import { colors } from '../constants/colors.js';
 import { StyleSheet } from 'react-native';
 import ShopNavigator from './ShopNavigator';
 import CartNavigator from './CartNavigator';
+import CameraNavigator from './CameraNavigator.jsx';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -15,12 +16,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     tabBarText: {
-       
         fontSize: 14,
         color: colors.text,
     },
     tabBarTextFocused: {
-        
         fontSize: 14,
         color: colors.text,
     },
@@ -58,6 +57,30 @@ const TabsNavigator = () => {
                 }}
             />
             <BottomTab.Screen
+                name="CameraTab"
+                component={CameraNavigator}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <View style={styles.tabBarIcon}>
+                            <IoniIcons
+                                name={focused ? 'camera' : 'camera-outline'}
+                                size={20}
+                                color={colors.primary}
+                            />
+                            <Text
+                                style={
+                                    focused
+                                        ? styles.tabBarTextFocused
+                                        : styles.tabBarText
+                                }
+                            >
+                                Camera
+                            </Text>
+                        </View>
+                    ),
+                }}
+            />
+            <BottomTab.Screen
                 name="CartTab"
                 component={CartNavigator}
                 options={{
@@ -85,7 +108,5 @@ const TabsNavigator = () => {
         </BottomTab.Navigator>
     );
 };
-
-
 
 export default TabsNavigator;
