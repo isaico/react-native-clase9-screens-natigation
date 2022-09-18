@@ -4,6 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import { colors } from '../../constants/colors';
 import { styles } from './style';
+import { insert } from '../../db';
 
 const ImageSelector = ({ onImage }) => {
     const [pickedUrl, setPickedUrl] = useState(null);
@@ -32,6 +33,8 @@ const ImageSelector = ({ onImage }) => {
         });
 
         setPickedUrl(image.uri);
+        insert(image.uri)
+        console.log(image.uri)
         onImage(image.uri);
     };
 
